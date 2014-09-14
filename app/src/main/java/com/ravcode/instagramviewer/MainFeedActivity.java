@@ -2,7 +2,6 @@ package com.ravcode.instagramviewer;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -61,9 +60,9 @@ public class MainFeedActivity extends Activity {
                         JSONObject photoJSON = photosJSON.getJSONObject(i);
                         Photo photo = new Photo();
                         photo.username = photoJSON.getJSONObject("user").getString("username");
-//                        if (photoJSON.getJSONObject("caption") != null) {
-//                            photo.caption = photoJSON.getJSONObject("caption").getString("text");
-//                        }
+                        if (photoJSON.has("caption") && photoJSON.getJSONObject("caption") != null) {
+                            photo.caption = photoJSON.getJSONObject("caption").getString("text");
+                        }
                         photo.imageURL = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getString("url");
                         photo.imageWidth = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getInt("width");
                         photo.imageHeight = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getInt("height");

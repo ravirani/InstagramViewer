@@ -2,7 +2,6 @@ package com.ravcode.instagramviewer;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Matrix;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +22,7 @@ public class PhotosAdapter extends ArrayAdapter<Photo> {
     private static class ViewHolder {
         ImageView photoView;
         TextView usernameView;
+        TextView captionView;
     }
 
     public PhotosAdapter(Context context, List<Photo> photos) {
@@ -40,13 +40,21 @@ public class PhotosAdapter extends ArrayAdapter<Photo> {
             convertView = inflater.inflate(R.layout.photo_view, parent, false);
             viewHolder.photoView = (ImageView)convertView.findViewById(R.id.ivPhoto);
             viewHolder.usernameView = (TextView)convertView.findViewById(R.id.tvUsername);
+            viewHolder.captionView = (TextView)convertView.findViewById(R.id.tvCaption);
             convertView.setTag(viewHolder);
         }
         else {
             viewHolder = (ViewHolder)convertView.getTag();
         }
 
-        viewHolder.usernameView.setText(photo.username);
+        viewHolder.usernameView.setText("@" + photo.username);
+        if (photo.caption != null) {
+            viewHolder.captionView.setText(photo.caption);
+            viewHolder.captionView.setVisibility(View.VISIBLE);
+        }
+        else {
+            viewHolder.captionView.setVisibility(View.GONE);
+        }
         viewHolder.photoView.getLayoutParams().height = photo.imageHeight;
         viewHolder.photoView.setImageResource(0);
         DisplayMetrics dm = new DisplayMetrics();

@@ -6,5 +6,6 @@
     <string name="action_settings">Settings</string>
     <string name="main_activity_title">Popular Photos</string>
     <string name="default_username">rrani</string>
+    <string name="default_caption">Title</string>
 
 </resources>
