@@ -88,9 +88,9 @@ public class MainFeedActivity extends Activity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 JSONArray photosJSON = null;
-                mPullToRefreshLayout.setRefreshComplete();
-                photos.clear();
                 JSONObject photoJSON = null;
+                ArrayList<Photo> newPhotos = new ArrayList<Photo>();
+                mPullToRefreshLayout.setRefreshComplete();
 
                 try {
                     photosJSON = response.getJSONArray("data");
@@ -105,9 +105,11 @@ public class MainFeedActivity extends Activity {
                         photo.imageWidth = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getInt("width");
                         photo.imageHeight = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getInt("height");
                         photo.likesCount = photoJSON.getJSONObject("likes").getInt("count");
-                        photos.add(photo);
+                        newPhotos.add(photo);
                     }
 
+                    photos.clear();
+                    photos.addAll(newPhotos);
                     photosAdapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     // Invalid JSON

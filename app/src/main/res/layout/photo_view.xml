@@ -11,21 +11,19 @@
         android:background="#80EEEEEE"
         android:scaleType="matrix"
         android:adjustViewBounds="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/tvUsername"
         android:src="@drawable/ic_launcher" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/ivPhoto"
-        android:layout_alignParentTop="true"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/default_username"
         android:fontFamily="sans-serif-light"
         android:textSize="16sp"
         android:id="@+id/tvUsername"
         android:textColor="#FF134169"
-        android:background="#B3FFFFFF"
+        android:background="#FFFFFFFF"
         android:padding="10dp"
         android:maxLines="1"
         android:ellipsize="end" />
