@@ -64,4 +64,9 @@ public class PhotosAdapter extends ArrayAdapter<Photo> {
         Picasso.with(getContext()).load(photo.imageURL).resize(width, height).into(viewHolder.photoView);
         return convertView;
     }
+
+    @Override
+    public boolean areAllItemsEnabled() {
+        return false;
+    }
 }

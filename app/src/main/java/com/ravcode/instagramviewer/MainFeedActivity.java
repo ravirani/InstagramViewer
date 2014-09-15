@@ -3,6 +3,7 @@ package com.ravcode.instagramviewer;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -88,15 +89,16 @@ public class MainFeedActivity extends Activity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 JSONArray photosJSON = null;
                 mPullToRefreshLayout.setRefreshComplete();
+                photos.clear();
+                JSONObject photoJSON = null;
 
                 try {
-                    photos.clear();
                     photosJSON = response.getJSONArray("data");
                     for (int i = 0; i < photosJSON.length(); i++) {
-                        JSONObject photoJSON = photosJSON.getJSONObject(i);
+                        photoJSON = photosJSON.getJSONObject(i);
                         Photo photo = new Photo();
                         photo.username = photoJSON.getJSONObject("user").getString("username");
-                        if (photoJSON != null && photoJSON.has("caption") && photoJSON.getJSONObject("caption") != null) {
+                        if (!photoJSON.isNull("caption")) {
                             photo.caption = photoJSON.getJSONObject("caption").getString("text");
                         }
                         photo.imageURL = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getString("url");
