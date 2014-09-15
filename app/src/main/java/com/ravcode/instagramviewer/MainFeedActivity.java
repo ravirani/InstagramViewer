@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -17,6 +18,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
+import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
+import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
+
 
 public class MainFeedActivity extends Activity {
 
@@ -24,7 +29,7 @@ public class MainFeedActivity extends Activity {
     private ArrayList<Photo> photos;
     private PhotosAdapter photosAdapter;
     private ListView lvPhotos;
-    private SwipeRefreshLayout swipeContainer;
+    private PullToRefreshLayout mPullToRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,20 +43,31 @@ public class MainFeedActivity extends Activity {
         lvPhotos.setAdapter(photosAdapter);
 
         // Setup pull to refresh
-        swipeContainer = (SwipeRefreshLayout)findViewById(R.id.swipeContainer);
-        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                fetchPopularPhotos();
-            }
-        });
 
-        swipeContainer.setColorSchemeResources(
-                android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light
-        );
+        mPullToRefreshLayout = (PullToRefreshLayout)findViewById(R.id.ptrLayout);
+        ActionBarPullToRefresh.from(this)
+                .allChildrenArePullable()
+                .listener(new OnRefreshListener() {
+                    @Override
+                    public void onRefreshStarted(View view) {
+                        fetchPopularPhotos();
+                    }
+                })
+                .setup(mPullToRefreshLayout);
+//        swipeContainer = (SwipeRefreshLayout)findViewById(R.id.swipeContainer);
+//        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                fetchPopularPhotos();
+//            }
+//        });
+//
+//        swipeContainer.setColorSchemeResources(
+//                android.R.color.holo_blue_bright,
+//                android.R.color.holo_green_light,
+//                android.R.color.holo_orange_light,
+//                android.R.color.holo_red_light
+//        );
 
         // Load initial data
         fetchPopularPhotos();
@@ -71,7 +87,7 @@ public class MainFeedActivity extends Activity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 JSONArray photosJSON = null;
-                swipeContainer.setRefreshing(false);
+                mPullToRefreshLayout.setRefreshComplete();
 
                 try {
                     photos.clear();
