@@ -2,6 +2,7 @@ package com.ravcode.instagramviewer;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -23,22 +24,40 @@ public class MainFeedActivity extends Activity {
     private ArrayList<Photo> photos;
     private PhotosAdapter photosAdapter;
     private ListView lvPhotos;
+    private SwipeRefreshLayout swipeContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_feed);
+
+        // Initialize Adapter and bind it to the list view
+        photos = new ArrayList<Photo>();
+        photosAdapter = new PhotosAdapter(this, photos);
+        lvPhotos = (ListView)findViewById(R.id.lvPhotos);
+        lvPhotos.setAdapter(photosAdapter);
+
+        // Setup pull to refresh
+        swipeContainer = (SwipeRefreshLayout)findViewById(R.id.swipeContainer);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchPopularPhotos();
+            }
+        });
+
+        swipeContainer.setColorSchemeResources(
+                android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light
+        );
+
+        // Load initial data
         fetchPopularPhotos();
     }
 
     private void fetchPopularPhotos() {
-
-        photos = new ArrayList<Photo>();
-
-        // Initialize Adapter and bind it to the list view
-        photosAdapter = new PhotosAdapter(this, photos);
-        lvPhotos = (ListView)findViewById(R.id.lvPhotos);
-        lvPhotos.setAdapter(photosAdapter);
 
         // Fetch popular photos from Instagram
         String popularPhotosURL = "https://api.instagram.com/v1/media/popular?client_id=" + CLIENT_ID;
@@ -52,8 +71,9 @@ public class MainFeedActivity extends Activity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 JSONArray photosJSON = null;
-                try {
+                swipeContainer.setRefreshing(false);
 
+                try {
                     photos.clear();
                     photosJSON = response.getJSONArray("data");
                     for (int i = 0; i < photosJSON.length(); i++) {
