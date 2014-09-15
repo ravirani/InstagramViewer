@@ -96,7 +96,7 @@ public class MainFeedActivity extends Activity {
                         JSONObject photoJSON = photosJSON.getJSONObject(i);
                         Photo photo = new Photo();
                         photo.username = photoJSON.getJSONObject("user").getString("username");
-                        if (photoJSON.has("caption") && photoJSON.getJSONObject("caption") != null) {
+                        if (photoJSON != null && photoJSON.has("caption") && photoJSON.getJSONObject("caption") != null) {
                             photo.caption = photoJSON.getJSONObject("caption").getString("text");
                         }
                         photo.imageURL = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getString("url");
