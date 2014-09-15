@@ -55,12 +55,16 @@ public class PhotosAdapter extends ArrayAdapter<Photo> {
         else {
             viewHolder.captionView.setVisibility(View.GONE);
         }
-        viewHolder.photoView.getLayoutParams().height = photo.imageHeight;
-        viewHolder.photoView.setImageResource(0);
+
         DisplayMetrics dm = new DisplayMetrics();
         ((Activity)getContext()).getWindowManager().getDefaultDisplay().getMetrics(dm);
+        // Calculate new width and height while keeping the same aspect ratio
         int width = dm.widthPixels;
         int height = width * photo.imageHeight / photo.imageWidth;
+
+        // Reset height and image source
+        viewHolder.photoView.getLayoutParams().height = height;
+        viewHolder.photoView.setImageResource(0);
         Picasso.with(getContext()).load(photo.imageURL).resize(width, height).into(viewHolder.photoView);
         return convertView;
     }
