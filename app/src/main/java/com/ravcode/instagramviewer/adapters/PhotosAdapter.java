@@ -5,7 +5,6 @@ import android.content.Context;
 import android.text.Html;
 import android.text.format.DateUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -103,13 +102,12 @@ public class PhotosAdapter extends ArrayAdapter<Photo> {
                 if (commentsHTML.length() != 0) {
                     commentsHTML.append("<br/>");
                 }
-                commentsHTML.append("<font color=\"#134169\">@");
+                commentsHTML.append("<b><font color=\"#134169\">@");
                 commentsHTML.append(comment.user.username);
-                commentsHTML.append("</font> ");
+                commentsHTML.append("</font></b> ");
                 commentsHTML.append(comment.text);
             }
 
-            Log.i("INFO", commentsHTML.toString());
             viewHolder.commentsView.setText(Html.fromHtml(commentsHTML.toString()));
             viewHolder.commentsView.setVisibility(View.VISIBLE);
         }
