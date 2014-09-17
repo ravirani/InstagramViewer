@@ -27,4 +27,7 @@ dependencies {
         maven { url 'http://download.crashlytics.com/maven' }
     }
     compile 'com.github.chrisbanes.actionbarpulltorefresh:library:+'
+    compile ('com.pkmmte.view:circularimageview:1.1') {
+        exclude group: "com.android.support", module: "support-v4"
+    }
 }

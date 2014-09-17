@@ -6,6 +6,9 @@
     <string name="action_settings">Settings</string>
     <string name="main_activity_title">Popular Photos</string>
     <string name="default_username">rrani</string>
+    <string name="default_date">20 h</string>
     <string name="default_caption">Title</string>
+    <string name="default_likes">1000 likes</string>
+    <string name="default_comments">Comments</string>
 
 </resources>

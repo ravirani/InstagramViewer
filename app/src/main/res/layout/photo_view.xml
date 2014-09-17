@@ -1,30 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFFFF"
+    android:paddingBottom="10dp">
 
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/ivPhoto"
-        android:background="#80EEEEEE"
+        android:background="#FFEEEEEE"
         android:scaleType="matrix"
         android:adjustViewBounds="true"
-        android:layout_below="@+id/tvUsername"
         android:src="@drawable/ic_launcher" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/llUsername"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#CCFFFFFF"
+        android:baselineAligned="false"
+        android:weightSum="1">
+
+        <com.pkmmte.view.CircularImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="5dp"
+            android:scaleType="centerCrop"
+            android:id="@+id/ivUserProfilePhoto"
+            app:border="false"
+            app:shadow="false" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/default_username"
+            android:fontFamily="sans-serif"
+            android:textSize="16sp"
+            android:id="@+id/tvUsername"
+            android:textColor="#FF134169"
+            android:paddingLeft="5dp"
+            android:paddingStart="5dp"
+            android:paddingRight="5dp"
+            android:paddingEnd="5dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivTimeIcon"
+            android:src="@drawable/ic_time_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            tools:text="20 h"
+            android:fontFamily="sans-serif"
+            android:textColor="#FF666666"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:id="@+id/tvCreatedTime"
+            android:paddingRight="10dp"
+            android:paddingEnd="10dp"
+            android:paddingLeft="3dp"
+            android:paddingStart="3dp" />
+
+    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/default_username"
+        android:text="@string/default_likes"
+        android:drawableLeft="@drawable/ic_likes"
+        android:drawableStart="@drawable/ic_likes"
+        android:drawablePadding="3dp"
         android:fontFamily="sans-serif-light"
-        android:textSize="16sp"
-        android:id="@+id/tvUsername"
+        android:textSize="14sp"
+        android:id="@+id/tvLikeCount"
         android:textColor="#FF134169"
-        android:background="#FFFFFFFF"
-        android:padding="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:layout_below="@+id/ivPhoto"
         android:maxLines="1"
         android:ellipsize="end" />
 
@@ -37,11 +105,27 @@
         android:textSize="14sp"
         android:id="@+id/tvCaption"
         android:textColor="#FF000000"
-        android:background="#FFFFFFFF"
-        android:padding="10dp"
-        android:layout_below="@+id/ivPhoto"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:layout_below="@+id/tvLikeCount"
         android:visibility="gone"
-        android:maxLines="1"
+        android:maxLines="2"
         android:ellipsize="end" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/default_comments"
+        android:fontFamily="sans-serif-light"
+        android:textSize="14sp"
+        android:id="@+id/tvComments"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:layout_below="@+id/tvCaption" />
+
+
 
 </RelativeLayout>
