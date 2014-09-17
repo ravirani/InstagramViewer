@@ -96,15 +96,7 @@ public class MainFeedActivity extends Activity {
                     photosJSON = response.getJSONArray("data");
                     for (int i = 0; i < photosJSON.length(); i++) {
                         photoJSON = photosJSON.getJSONObject(i);
-                        Photo photo = new Photo();
-                        photo.username = photoJSON.getJSONObject("user").getString("username");
-                        if (!photoJSON.isNull("caption")) {
-                            photo.caption = photoJSON.getJSONObject("caption").getString("text");
-                        }
-                        photo.imageURL = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getString("url");
-                        photo.imageWidth = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getInt("width");
-                        photo.imageHeight = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getInt("height");
-                        photo.likesCount = photoJSON.getJSONObject("likes").getInt("count");
+                        Photo photo = new Photo(photoJSON);
                         newPhotos.add(photo);
                     }
 
