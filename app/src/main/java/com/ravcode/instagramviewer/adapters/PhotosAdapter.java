@@ -59,10 +59,10 @@ public class PhotosAdapter extends ArrayAdapter<Photo> {
 
         // User profile picture
         if (photo.user.profileURL != null) {
-            Picasso.with(getContext()).load(photo.user.profileURL).placeholder(R.drawable.user_placeholder).into(viewHolder.userProfilePictureView);
+            Picasso.with(getContext()).load(photo.user.profileURL).placeholder(R.drawable.ic_user_placeholder).into(viewHolder.userProfilePictureView);
         }
         else {
-            viewHolder.userProfilePictureView.setImageResource(R.drawable.user_placeholder);
+            viewHolder.userProfilePictureView.setImageResource(R.drawable.ic_user_placeholder);
         }
 
         // Username
